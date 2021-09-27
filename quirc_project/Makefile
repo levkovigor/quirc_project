@@ -80,10 +80,10 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 INCLUDES = -I$(AT91LIB)/boards/$(BOARD) -I$(AT91LIB)/peripherals -I$(AT91LIB)/libs
 INCLUDES += -I$(AT91LIB)/components -I$(AT91LIB)
 
-CFLAGS = -mcpu=arm926ej-s -march=armv5tej -Wall -mlong-calls -ffunction-sections
+CFLAGS = -std=c99 -Wall -mlong-calls -ffunction-sections
 CFLAGS += -g $(OPTIMIZATION) $(INCLUDES) -D$(CHIP) -DTRACE_LEVEL=$(TRACE_LEVEL)
-ASFLAGS = -mcpu=arm926ej-s -march=armv5tej -g $(OPTIMIZATION) $(INCLUDES) -D$(CHIP) -D__ASSEMBLY__
-LDFLAGS = -mcpu=arm926ej-s -march=armv5tej -g $(OPTIMIZATION) -nostartfiles -Wl,--gc-sections
+ASFLAGS = -g $(OPTIMIZATION) $(INCLUDES) -D$(CHIP) -D__ASSEMBLY__
+LDFLAGS = -g $(OPTIMIZATION) -nostartfiles -Wl,--gc-sections
 
 #-------------------------------------------------------------------------------
 #		Files
