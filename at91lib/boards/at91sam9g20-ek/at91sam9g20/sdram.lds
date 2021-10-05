@@ -53,9 +53,27 @@ SECTIONS
         *(.glue_7)
         *(.glue_7t)
         *(.data)
+		*(.data*)
+		*(.vectors);
         . = ALIGN(4);
-        _efixed = .;
     } >sdram
+	
+	/* used for unwinding, can be useful for debugging  */  
+	.ARM.extab :
+    {  
+		*(.ARM.extab* .gnu.linkonce.armextab.*) 
+	} >sdram
+   
+    /* used for unwinding, can be useful for debugging  */  
+	__exidx_start = .;
+    .ARM.exidx : 
+    {
+		*(.ARM.exidx* .gnu.linkonce.armexidx.*)
+	} >sdram
+    __exidx_end = .;
+    
+    . = ALIGN(4);
+    _efixed = .;
 
     .prerelocate : AT (_efixed)
     {
@@ -69,23 +87,25 @@ SECTIONS
     {
         . = ALIGN(4);
         _spostrelocate = .;
-        *(.vectors);
         *(.ramfunc)
         . = ALIGN(4);
         _epostrelocate = .;
     } >sram0
 
-    .bss (NOLOAD) : {
+    .bss : {
         _szero = .;
-        *(.bss)
+        *(.bss) 
+        *(.bss*) 
+        *(COMMON)
         . = ALIGN(4);
         _ezero = .;
     } >sdram
-
-    _sheap_ = .;
-    _eheap_ = 0x21800000;
-    
-    _sstack = 0x24000000;
+	
+	_sheap_ = 0x21000000;
+	_eheap_ = 0x23000000;	
+	
+    _sstack = 0x23000100;
+	_estack = 0x23900000;
 }
 end = .;
 
