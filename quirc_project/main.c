@@ -234,16 +234,6 @@ void main_Test(AT91PS_VIDEO pVideo)
 //-----------------------------------------------------------------------------
 int main(void)
 {
-    unsigned char CharReceive=0;
-    unsigned char command=0;
-    unsigned char nbByte_Pixels=0;
-    unsigned char toggle_swapcc=0;
-    unsigned int  reg_cr2=0;
-    unsigned char toggle_HSYNC=0;
-    unsigned char toggle_VSYNC=0;
-    unsigned char toggle_POL=0;
-    unsigned char toggle_SYNC=0;
-    unsigned char toggle_BAR=0;
 
     q = quirc_new((uint8_t *)BuffTrans);
 
@@ -304,8 +294,6 @@ int main(void)
         printf("-I- Retry init\n\r");
     }
     printf("-I- Init passed\n\r");
-
-    nbByte_Pixels = ISI_BytesForOnePixel(S_Video.rgb_or_yuv);
 
     printf("Source Size = [%d,%d]", S_Video.codec_hsize, S_Video.codec_vsize);
     if ( S_Video.rgb_or_yuv == RGB) {
